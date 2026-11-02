@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#090d24">
+  <meta name="description" content="STARFALL — uma aventura espacial 2D em pixel art 16-bit.">
+  <title>STARFALL — Beyond the Last Orbit</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icons/starfall-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/starfall-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <div class="game-shell">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">✦</span><span>STARFALL</span><small>BEYOND THE LAST ORBIT</small></div>
+        <div class="top-actions">
+          <span class="save-indicator" id="save-indicator">SALVO LOCALMENTE</span>
+          <button class="icon-btn" id="install-btn" hidden aria-label="Instalar jogo">↓ INSTALAR</button>
+          <button class="icon-btn" id="sound-btn" aria-label="Alternar som">♫ SOM</button>
+        </div>
+      </header>
+      <section class="screen-frame" aria-label="Área do jogo">
+        <canvas id="game" width="384" height="216" aria-label="STARFALL, jogo de plataforma espacial"></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="touch-controls" id="touch-controls" aria-label="Controles de toque">
+          <div class="dpad">
+            <button data-control="left" aria-label="Esquerda">◀</button>
+            <button data-control="right" aria-label="Direita">▶</button>
+          </div>
+          <div class="action-pad">
+            <button class="dash-btn" data-control="dash" aria-label="Impulso">◆</button>
+            <button class="fire-btn" data-control="fire" aria-label="Atacar">●</button>
+            <button class="jump-btn" data-control="jump" aria-label="Pular">A</button>
+          </div>
+        </div>
+        <div class="mobile-hint" id="mobile-hint">SEGURE ◀ ▶ PARA MOVER · A PARA PULAR · ● PARA ATIRAR</div>
+      </section>
+      <footer class="bottombar">
+        <span>© STARFALL STUDIOS</span>
+        <span>PIXEL ART // 16-BIT INSPIRED</span>
+        <span id="version-label">v1.0.0</span>
+      </footer>
+    </div>
+  </main>
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+    }
+    let deferredInstall;
+    const installBtn = document.getElementById('install-btn');
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault(); deferredInstall = event; installBtn.hidden = false;
+    });
+    installBtn.addEventListener('click', async () => {
+      if (!deferredInstall) return;
+      deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall = null; installBtn.hidden = true;
+    });
+  </script>
+</body>
+</html>

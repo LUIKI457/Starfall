@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "STARFALL — Beyond the Last Orbit",
+  "short_name": "STARFALL",
+  "description": "Uma aventura espacial 2D em pixel art 16-bit.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#080b1c",
+  "theme_color": "#090d24",
+  "icons": [
+    {"src": "assets/icons/starfall-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "assets/icons/starfall-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "assets/icons/starfall-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
